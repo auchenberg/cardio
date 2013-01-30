@@ -1,0 +1,24 @@
+{
+  "name": "cardio",
+  "version": "0.0.0",
+  "description": "A cardiograph for your web application code base",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/auchenberg/cardio.git"
+  },
+  "keywords": [
+    "tool",
+    "performance"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "assetgraph": "~1.3.4",
+    "colors": "~0.6.0",
+    "css-explain": "~0.1.0",
+    "optimist": "~0.3.5"
+  }
+}
