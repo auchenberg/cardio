@@ -1,10 +1,9 @@
 {
   "name": "cardio",
-  "version": "0.0.0",
   "description": "A cardiograph for your web application code base",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "version": "0.0.0",
+  "bin": {
+    "cardio": "./bin/cardio"
   },
   "repository": {
     "type": "git",
