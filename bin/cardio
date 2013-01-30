@@ -90,6 +90,9 @@ new AssetGraph({root: rootUrl})
         });
     })
     .populate({followRelations: followRelationsQueryObj, startAssets: {type: 'Html', isFragment: true, isInitial: true}})
+    .compileLessToCss()
+    .compileStylusToCss()
+    .compileCoffeeScriptToJavaScript()
     // Do the stats magic here
     .writeStatsToStderr()
     .run(function (err) {
