@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var optimist = require('optimist'),
+    mime = require('mime'),
     commandLineOptions = optimist
         .usage('Measure your code bases fitness\n$0 [-r <inputRootDirectory>] <htmlFile(s)>')
         .options('h', {
@@ -89,8 +90,21 @@ new AssetGraph({root: rootUrl})
     // Assets sizes
     .queue(function (assetGraph) {
         notepad.assetSizes = {};
-        assetGraph.findAssets({isInline: false}).forEach(function (asset) {
-            notepad.assetSizes[asset.type] = (notepad.assetSizes[asset.type] || 0) + asset.rawSrc.length;
+        assetGraph.findAssets({isInline: false, isLoaded: true}).forEach(function (asset) {
+            var type = asset.type;
+            if (type === 'Asset') {
+                type = asset.contentType;
+                var extension = (asset.extension || '').replace(/^[^.]*\./, '');
+                console.warn(extension, mime.types[extension])
+                if (extension && type === 'application/octet-stream') {
+                    if (extension in mime.types) {
+                        type = mime.types[extension];
+                    } else {
+                        type = extension;
+                    }
+                }
+            }
+            notepad.assetSizes[type] = (notepad.assetSizes[type] || 0) + asset.rawSrc.length;
         })
     })
 
