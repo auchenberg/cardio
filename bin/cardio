@@ -119,7 +119,8 @@ new AssetGraph({root: rootUrl})
 
     // Console output
     .queue(function (assetGraph) {
-        console.warn("And the verdict's in:\n", JSON.stringify(notepad, null, 4));
+        console.warn("And the verdict's in:");
+		console.log(JSON.stringify(notepad, null, 4));
     })
 
     .run(function (err) {

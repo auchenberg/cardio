@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+var fs = require('fs'),
+	unfolder = require('../lib/unfolder');
+
+var optimist = require('optimist'),
+    commandLineOptions = optimist
+        .usage('Transfer output metrics to Graphite')
+        .options('h', {
+            alias: 'help',
+            describe: 'Show this help',
+            type: 'boolean',
+            default: false
+        })
+        .wrap(72)
+        .argv;
+
+if (commandLineOptions.h && commandLineOptions._.length !== 1) {
+    optimist.showHelp();
+    process.exit(1);
+}
+
+var input = commandLineOptions._[0],
+	server = commandLineOptions._[1];
+
+var data = fs.readFileSync(input, 'utf-8'),
+    jsonData = JSON.parse(data),
+	simple = unfolder(jsonData);
+console.log(JSON.stringify(simple, null, 4));
