@@ -23,18 +23,6 @@ if (commandLineOptions.h) {
     process.exit(1);
 }
 
-if ('o' in commandLineOptions) {
-    var idx = commandLineOptions._.indexOf('-');
-
-    if (idx !== -1) {
-        if (typeof commandLineOptions.o !== 'boolean') {
-            commandLineOptions._.push(commandLineOptions.o);
-        }
-        commandLineOptions._.splice(idx, 1);
-        commandLineOptions.o = commandLineOptions.output = '-';
-    }
-}
-
 var urlTools = require('assetgraph/lib/util/urlTools'),
     rootUrl = commandLineOptions.root && urlTools.urlOrFsPathToUrl(commandLineOptions.root, true),
     inputUrls;
