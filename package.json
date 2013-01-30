@@ -22,6 +22,7 @@
     "assetgraph": "~1.3.4",
     "colors": "~0.6.0",
     "css-explain": "~0.1.0",
-    "optimist": "~0.3.5"
+    "optimist": "~0.3.5",
+    "less": "*"
   }
 }
