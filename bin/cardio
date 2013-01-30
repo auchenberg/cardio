@@ -68,10 +68,7 @@ var AssetGraph = require('assetgraph'),
             url: /^https?:/
         }
     }),
-    assetviz = require('../index.js'),
     colors = require('colors');
-
-AssetGraph.registerTransform(assetviz, 'assetviz');
 
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
