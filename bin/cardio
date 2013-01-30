@@ -2,6 +2,7 @@
 
 var optimist = require('optimist'),
     mime = require('mime'),
+    canonicalizeObject = require('../lib/canonicalizeObject'),
     commandLineOptions = optimist
         .usage('Measure your code bases fitness\n$0 [-r <inputRootDirectory>] <htmlFile(s)>')
         .options('h', {
@@ -47,7 +48,6 @@ if (commandLineOptions._.length > 0) {
 if (!rootUrl && inputUrls.length === 1) {
     rootUrl = inputUrls[0];
 }
-
 
 var AssetGraph = require('assetgraph'),
     query = AssetGraph.query,
@@ -114,6 +114,7 @@ new AssetGraph({root: rootUrl})
             notepad.assetCount[type] = (notepad.assetCount[type] || 0) + 1;
             notepad.assetSizes[type] = (notepad.assetSizes[type] || 0) + asset.rawSrc.length;
         })
+        notepad = canonicalizeObject(notepad);
     })
 
     // Console output
