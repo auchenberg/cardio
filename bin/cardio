@@ -82,12 +82,23 @@ new AssetGraph({root: rootUrl})
     .compileLessToCss()
     .compileStylusToCss()
     .compileCoffeeScriptToJavaScript()
-    // Do the stats magic here
+
+    // CSS Complexity
     .queue(require('../lib/transforms/measureCssComplexity')({type: 'Css'}, notepad))
+
+    // Assets sizes
     .queue(function (assetGraph) {
-        console.warn("And the verdict's in:\n", notepad);
+        notepad.assetSizes = {};
+        assetGraph.findAssets({isInline: false}).forEach(function (asset) {
+            notepad.assetSizes[asset.type] = (notepad.assetSizes[asset.type] || 0) + asset.rawSrc.length;
+        })
     })
-    .writeStatsToStderr()
+
+    // Console output
+    .queue(function (assetGraph) {
+        console.warn("And the verdict's in:\n", JSON.stringify(notepad, null, 4));
+    })
+
     .run(function (err) {
         if (err) {
             throw err;
