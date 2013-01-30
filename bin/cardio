@@ -56,7 +56,8 @@ var AssetGraph = require('assetgraph'),
             url: /^https?:/
         }
     }),
-    colors = require('colors');
+    colors = require('colors'),
+    notepad = {};
 
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
@@ -82,6 +83,10 @@ new AssetGraph({root: rootUrl})
     .compileStylusToCss()
     .compileCoffeeScriptToJavaScript()
     // Do the stats magic here
+    .queue(require('../lib/transforms/measureCssComplexity')({type: 'Css'}, notepad))
+    .queue(function (assetGraph) {
+        console.warn("And the verdict's in:\n", notepad);
+    })
     .writeStatsToStderr()
     .run(function (err) {
         if (err) {
