@@ -93,6 +93,7 @@ new AssetGraph({root: rootUrl})
     // Assets sizes
     .queue(function (assetGraph) {
         notepad.assetSizes = {};
+        notepad.assetCount = {};
         assetGraph.findAssets({isInline: false, isLoaded: true}).forEach(function (asset) {
             var type = asset.type;
             if (type === 'Asset') {
@@ -107,6 +108,7 @@ new AssetGraph({root: rootUrl})
                     }
                 }
             }
+            notepad.assetCount[type] = (notepad.assetCount[type] || 0) + 1;
             notepad.assetSizes[type] = (notepad.assetSizes[type] || 0) + asset.rawSrc.length;
         })
     })
