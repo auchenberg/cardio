@@ -87,6 +87,9 @@ new AssetGraph({root: rootUrl})
     // CSS Complexity
     .queue(require('../lib/transforms/measureCssComplexity')({type: 'Css'}, notepad))
 
+    // JavaScript complexity
+    .queue(require('../lib/transforms/measureJavaScriptComplexity')({type: 'JavaScript'}, notepad))
+
     // Assets sizes
     .queue(function (assetGraph) {
         notepad.assetSizes = {};
