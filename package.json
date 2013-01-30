@@ -25,6 +25,7 @@
     "complexity-report": "~0.6.2",
     "css-explain": "~0.1.0",
     "mime": "~1.2.9",
+    "onecolor": "~2.3.3",
     "optimist": "~0.3.5",
     "stylus": "~0.32.0",
     "underscore": "~1.4.4",
