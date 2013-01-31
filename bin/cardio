@@ -102,7 +102,6 @@ new AssetGraph({root: rootUrl})
             if (type === 'Asset') {
                 type = asset.contentType;
                 var extension = (asset.extension || '').replace(/^[^.]*\./, '');
-                console.warn(extension, mime.types[extension])
                 if (extension && type === 'application/octet-stream') {
                     if (extension in mime.types) {
                         type = mime.types[extension];
