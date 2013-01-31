@@ -21,3 +21,8 @@ Usage
 
     $ cardio »url-or-webroot-or-html-file« > output.json
     $ cardio-report2array output.json # Reformats for metrics-friendly digestion
+
+License
+-------
+
+[MIT](https://raw.github.com/auchenberg/cardio/master/LICENSE)
