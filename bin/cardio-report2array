@@ -2,6 +2,7 @@
 var _ = require('underscore'),
     fs = require('fs'),
 	unfolder = require('../lib/unfolder');
+	stats = require('../lib/stats');
 
 var optimist = require('optimist'),
     commandLineOptions = optimist
@@ -32,6 +33,24 @@ var data = fs.readFileSync(input, 'utf-8'),
     jsonData = JSON.parse(data),
     simple = unfolder(jsonData);
 
+// Roll out known stats
+var newSimple = {};
+_.forEach(simple, function (value, key) {
+    // Do maths on numbers that are known to have multiple values
+     if (key.indexOf('js.complexityReports') === 0 || key.indexOf('html.nestingLevels') === 0) {
+         var extraKeys = stats.stats(value);
+         _(extraKeys).forEach(function (value, subKey) {
+             newSimple[key + "." + subKey] = value;
+         });
+     } else if (value.length > 1) {
+         console.warn("ERROR: Expected key '" + key + "' to have one element, not " + value.length);
+     } else {
+         newSimple[key] = value[0];
+     }
+ });
+ simple = newSimple;
+
+// Any grepping?
 if (commandLineOptions.grep) {
     var newOutput = {};
     _(simple).forEach(function (value, key) {
@@ -42,6 +61,7 @@ if (commandLineOptions.grep) {
     simple = newOutput;
 }
 
+// Final output
 console.log(JSON.stringify(simple, null, 4));
 
 // ex: filetype=javascript
