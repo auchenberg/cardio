@@ -23,4 +23,4 @@ Usage
 License
 -------
 
-[MIT](https://raw.github.com/auchenberg/cardio/master/LICENSE)
+[MIT](LICENSE)
