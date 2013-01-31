@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-var fs = require('fs'),
+var _ = require('underscore'),
+    fs = require('fs'),
 	unfolder = require('../lib/unfolder');
 
 var optimist = require('optimist'),
@@ -10,6 +11,11 @@ var optimist = require('optimist'),
             describe: 'Show this help',
             type: 'boolean',
             default: false
+        })
+        .options('g', {
+            alias: 'grep',
+            describe: 'Only process the matched output',
+            type: 'string',
         })
         .wrap(72)
         .argv;
@@ -24,5 +30,18 @@ var input = commandLineOptions._[0],
 
 var data = fs.readFileSync(input, 'utf-8'),
     jsonData = JSON.parse(data),
-	simple = unfolder(jsonData);
+    simple = unfolder(jsonData);
+
+if (commandLineOptions.grep) {
+    var newOutput = {};
+    _(simple).forEach(function (value, key) {
+        if (key.indexOf(commandLineOptions.grep) !== -1) {
+            newOutput[key] = value;
+        }
+    });
+    simple = newOutput;
+}
+
 console.log(JSON.stringify(simple, null, 4));
+
+// ex: filetype=javascript
