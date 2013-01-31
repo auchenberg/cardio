@@ -17,6 +17,11 @@ var optimist = require('optimist'),
             type: 'string',
             demand: false
         })
+        .options('check', {
+            describe: 'A JavaScript expression to evaluate. The process will exit with a non-zero code if the expression evaluates to true (for use with git bisect)',
+            type: 'string',
+            demand: false
+        })
         .wrap(72)
         .argv;
 
@@ -118,8 +123,25 @@ new AssetGraph({root: rootUrl})
 
     // Console output
     .queue(function (assetGraph) {
-        console.warn("And the verdict's in:");
-		console.log(JSON.stringify(notepad, null, 4));
+        if (commandLineOptions.check) {
+            var checkFunction;
+            try {
+                checkFunction = new Function("notepad", "with (notepad) {return " + commandLineOptions.check + ";}");
+            } catch (e) {
+                console.error('Invalid check function syntax: ' + commandLineOptions.check);
+                process.exit(1);
+            }
+            try {
+                process.exit(checkFunction(notepad) ? 1 : 0);
+            } catch (e) {
+                // The check function threw an exception. That probably means it's deferring a value that doesn't
+                // exist, so don't fail (this behavior is debatable).
+                process.exit(0);
+            }
+        } else {
+            console.warn("And the verdict's in:");
+            console.log(JSON.stringify(notepad, null, 4));
+        }
     })
 
     .run(function (err) {
