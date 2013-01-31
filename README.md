@@ -8,9 +8,7 @@ complexity.
 Installation
 ------------
 
-    git clone https://github.com/auchenberg/cardio.git
-	cd cardio
-	npm install
+    npm install -g cardio
 
 If you get installation errors for node-canvas, don't despair. It's an optional
 dependency used by [Assetgraph](https://github.com/One-com/assetgraph) to do
