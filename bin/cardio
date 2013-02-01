@@ -65,6 +65,14 @@ var AssetGraph = require('assetgraph'),
     colors = require('colors'),
     notepad = {};
 
+Object.keys(commandLineOptions)
+    .forEach(function (commandLineOptionName) {
+        if (/^meta-/.test(commandLineOptionName)) {
+            notepad[commandLineOptionName.replace(/^meta-/, '')] = commandLineOptions[commandLineOptionName];
+        }
+    });
+
+
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
         console.error(' ✘ '.red + err.message);
