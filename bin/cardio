@@ -63,7 +63,9 @@ var AssetGraph = require('assetgraph'),
         }
     }),
     colors = require('colors'),
-    notepad = {};
+    notepad = {
+        timestamp: Math.floor(Date.now() / 1000)
+    };
 
 Object.keys(commandLineOptions)
     .forEach(function (commandLineOptionName) {
