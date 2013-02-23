@@ -27,7 +27,7 @@ var optimist = require('optimist'),
 
 if (commandLineOptions.h) {
     optimist.showHelp();
-    process.exit(1);
+    process.exit();
 }
 
 var urlTools = require('assetgraph/lib/util/urlTools'),
@@ -47,7 +47,8 @@ if (commandLineOptions._.length > 0) {
     inputUrls = [rootUrl + '**/*.html'];
     console.warn('No input files specified, defaulting to ' + inputUrls[0]);
 } else {
-    throw new Error("No input files and no --root specified (or it isn't file:), cannot proceed");
+    optimist.showHelp();
+    process.exit(1);
 }
 
 if (!rootUrl && inputUrls.length === 1) {
