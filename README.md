@@ -12,7 +12,7 @@ Installation
 
 If you get installation errors for node-canvas, don't despair. It's an optional
 dependency used by [Assetgraph](https://github.com/One-com/assetgraph) to do
-some other cool stuff that isn't used in AssetViz.
+some other cool stuff that isn't used in Cardio.
 
 Usage
 -----
