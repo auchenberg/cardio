@@ -30,7 +30,7 @@ if (commandLineOptions.h) {
     process.exit();
 }
 
-var urlTools = require('assetgraph/lib/util/urlTools'),
+var urlTools = require('urltools'),
     rootUrl = commandLineOptions.root && urlTools.urlOrFsPathToUrl(commandLineOptions.root, true),
     inputUrls;
 
@@ -78,7 +78,8 @@ Object.keys(commandLineOptions)
 
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
-        console.error(' ✘ '.red + err.message);
+        console.error(' ✘ '.red + err.message, err.asset.urlOrDescription);
+        console.error(err.asset.text);
     })
     .on('addAsset', function (asset) {
         if (asset.url) {
@@ -128,7 +129,7 @@ new AssetGraph({root: rootUrl})
             }
             notepad.assetCount[type] = (notepad.assetCount[type] || 0) + 1;
             notepad.assetSizes[type] = (notepad.assetSizes[type] || 0) + asset.rawSrc.length;
-        })
+        });
         notepad = canonicalizeObject(notepad);
     })
 
