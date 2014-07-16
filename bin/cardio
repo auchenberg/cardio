@@ -78,7 +78,8 @@ Object.keys(commandLineOptions)
 
 new AssetGraph({root: rootUrl})
     .on('error', function (err) {
-        console.error(' ✘ '.red + err.message);
+        console.error(' ✘ '.red + err.message, err.asset.urlOrDescription);
+        console.error(err.asset.text);
     })
     .on('addAsset', function (asset) {
         if (asset.url) {
