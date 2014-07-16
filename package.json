@@ -1,7 +1,7 @@
 {
   "name": "cardio",
   "description": "A cardiograph for your web application code base",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/auchenberg/cardio.git"
