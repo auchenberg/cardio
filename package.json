@@ -15,7 +15,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "assetgraph": "^1.6.42",
+    "assetgraph": "1.11.1",
     "coffee-script": "~1.4.0",
     "colors": "~0.6.0",
     "css-explain": "~0.1.0",
@@ -26,6 +26,6 @@
     "optimist": "~0.3.5",
     "stylus": "~0.32.0",
     "underscore": "~1.4.4",
-    "urltools": "^0.1.0"
+    "urltools": "0.2.0"
   }
 }
